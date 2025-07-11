@@ -1,7 +1,5 @@
 # Celestial Cosmetics
 
-![Celestial Cosmetics Banner](public/images/logo/logo.png)
-
 Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling cosmetic products, built with the Laravel framework. It provides a complete solution for managing products, orders, customers, and more.
 
 ## Key Features
@@ -45,3 +43,17 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
+
+## Screenshots
+
+A selection of Opera browser screenshots demonstrating the Celestial Cosmetics platform can be found in the `screenshot/` directory:
+
+- `screenshot/Opera Snapshot_2025-07-11_205048_celestial-cosmetics.test.png`
+- `screenshot/Opera Snapshot_2025-06-27_021226_celestial-cosmetics.test.png`
+- `screenshot/Opera Snapshot_2025-06-27_021157_celestial-cosmetics.test.png`
+- `screenshot/Opera Snapshot_2025-06-27_021122_celestial-cosmetics.test.png`
+- `screenshot/Opera Snapshot_2025-06-27_020814_celestial-cosmetics.test.png`
+- `screenshot/Opera Snapshot_2025-06-25_031942_celestial-cosmetics.test.png`
+- `screenshot/Opera Snapshot_2025-06-25_031858_celestial-cosmetics.test.png`
+
+These images provide a visual overview of the storefront and admin features as seen in the Opera browser.
