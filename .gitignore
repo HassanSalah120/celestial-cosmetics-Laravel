@@ -22,6 +22,7 @@ yarn-error.log
 /.vscode
 /.zed
 .qodo
+.cursorignore
 
 # Backup files
 /backups/
@@ -39,3 +40,14 @@ yarn-error.log
 
 # Documentation
 /docs/
+
+# Unwanted directories
+/storage/
+/tests/
+/database/seeders/
+/database/**/*.md
+
+# Media files
+/public/images/
+/public/team/
+!/public/images/products/placeholder.jpg
