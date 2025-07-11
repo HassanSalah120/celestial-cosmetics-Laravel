@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'shop_now' => 'Shop Now',
+    'add_to_cart' => 'Add to Cart',
+    'view_details' => 'View Details',
+    'categories' => 'Categories',
+    'price' => 'Price',
+    'quantity' => 'Quantity',
+    'in_stock' => 'In Stock',
+    'out_of_stock' => 'Out of Stock',
+    'description' => 'Description',
+    'ingredients' => 'Ingredients',
+    'how_to_use' => 'How to Use',
+    'related_products' => 'Related Products',
+    'featured_products' => 'Featured Products',
+    'featured_products_desc' => 'Discover our most popular celestial-inspired beauty products, crafted with care to enhance your natural glow',
+    'view_all_products' => 'View All Products',
+    'just_arrived' => 'Just Arrived',
+    'new_arrivals' => 'New Arrivals',
+    'new_arrivals_desc' => 'Be the first to explore our latest cosmic-inspired additions to our collection',
+    'explore_new_arrivals' => 'Explore New Arrivals',
+    'shop_by_category' => 'Shop by Category',
+    'categories_desc' => 'Explore our wide range of product categories to find your perfect cosmic match',
+    'explore_category' => 'Explore Category',
+    'all_products' => 'All Products',
+]; 

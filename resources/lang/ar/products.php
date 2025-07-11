@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'shop_now' => 'تسوق الآن',
+    'add_to_cart' => 'أضف إلى السلة',
+    'view_details' => 'عرض التفاصيل',
+    'categories' => 'الفئات',
+    'price' => 'السعر',
+    'quantity' => 'الكمية',
+    'in_stock' => 'متوفر',
+    'out_of_stock' => 'نفذ من المخزون',
+    'description' => 'الوصف',
+    'ingredients' => 'المكونات',
+    'how_to_use' => 'طريقة الاستخدام',
+    'related_products' => 'منتجات ذات صلة',
+    'featured_products' => 'منتجات مميزة',
+    'featured_products_desc' => 'اكتشف منتجاتنا الأكثر شعبية المستوحاة من السماء، والتي صُممت بعناية لتعزيز إشراقتك الطبيعية',
+    'view_all_products' => 'عرض جميع المنتجات',
+    'just_arrived' => 'وصل حديثًا',
+    'new_arrivals' => 'وصل حديثًا',
+    'new_arrivals_desc' => 'كن أول من يستكشف أحدث إضافاتنا المستوحاة من الكون إلى مجموعتنا',
+    'explore_new_arrivals' => 'استكشف المنتجات الجديدة',
+    'shop_by_category' => 'تسوق حسب الفئة',
+    'categories_desc' => 'استكشف مجموعتنا الواسعة من فئات المنتجات للعثور على ما يناسبك من عالم الكون',
+    'explore_category' => 'استكشف الفئة',
+    'all_products' => 'جميع المنتجات',
+]; 

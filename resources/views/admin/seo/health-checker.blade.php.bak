@@ -1,0 +1,457 @@
+@extends('layouts.admin')
+
+@section('title', $pageTitle)
+
+@section('content')
+<div class="px-4 sm:px-6 lg:px-8">
+    <h1 class="text-2xl font-semibold text-gray-900 mt-4">SEO Health Checker</h1>
+    <nav class="flex mb-5" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary-dark">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                    </svg>
+                    Dashboard
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <a href="{{ route('admin.seo.index') }}" class="ml-1 text-sm font-medium text-primary hover:text-primary-dark md:ml-2">SEO Management</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Health Checker</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+    
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+            <div>
+                <h3 class="text-lg leading-6 font-medium text-gray-900">SEO Health Check Report</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">A comprehensive analysis of your site's SEO health.</p>
+            </div>
+            <div>
+                <button id="runCheckBtn" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    <svg class="h-4 w-4 mr-1.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Run Check Again
+                </button>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-200">
+            <dl>
+                <!-- Overall score -->
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Overall Score</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @php
+                            $passedChecks = collect($healthChecks)->filter(function($check) {
+                                return $check['pass'];
+                            })->count();
+                            
+                            $totalChecks = count($healthChecks);
+                            $score = $totalChecks > 0 ? round(($passedChecks / $totalChecks) * 100) : 0;
+                            
+                            if ($score >= 80) {
+                                $scoreClass = 'text-green-600';
+                                $scoreText = 'Excellent';
+                            } elseif ($score >= 60) {
+                                $scoreClass = 'text-yellow-600';
+                                $scoreText = 'Good';
+                            } else {
+                                $scoreClass = 'text-red-600';
+                                $scoreText = 'Needs Improvement';
+                            }
+                        @endphp
+                        
+                        <div class="flex items-center">
+                            <span class="text-2xl font-bold {{ $scoreClass }}">{{ $score }}%</span>
+                            <span class="ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $scoreClass == 'text-green-600' ? 'bg-green-100' : ($scoreClass == 'text-yellow-600' ? 'bg-yellow-100' : 'bg-red-100') }}">
+                                {{ $scoreText }}
+                            </span>
+                        </div>
+                        <div class="mt-2 text-xs text-gray-500">
+                            {{ $passedChecks }} of {{ $totalChecks }} checks passed
+                        </div>
+                    </dd>
+                </div>
+                
+                <!-- Meta Titles -->
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        <div class="flex items-center">
+                            <span>Meta Titles</span>
+                            @if($healthChecks['meta_title']['pass'])
+                                <svg class="ml-2 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="ml-2 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @if($healthChecks['meta_title']['pass'])
+                            <p class="text-green-600">All meta titles are optimized correctly.</p>
+                        @else
+                            <p class="text-red-600">Found {{ count($healthChecks['meta_title']['issues']) }} issue(s) with meta titles:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                @foreach($healthChecks['meta_title']['issues'] as $issue)
+                                    <li>{{ $issue }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <strong>Best practices:</strong> Meta titles should be between 30-60 characters and clearly describe the page content.
+                            </p>
+                        @endif
+                    </dd>
+                </div>
+                
+                <!-- Meta Descriptions -->
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        <div class="flex items-center">
+                            <span>Meta Descriptions</span>
+                            @if($healthChecks['meta_description']['pass'])
+                                <svg class="ml-2 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="ml-2 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @if($healthChecks['meta_description']['pass'])
+                            <p class="text-green-600">All meta descriptions are optimized correctly.</p>
+                        @else
+                            <p class="text-red-600">Found {{ count($healthChecks['meta_description']['issues']) }} issue(s) with meta descriptions:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                @foreach($healthChecks['meta_description']['issues'] as $issue)
+                                    <li>{{ $issue }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <strong>Best practices:</strong> Meta descriptions should be between 50-160 characters and provide a concise summary of the page content.
+                            </p>
+                        @endif
+                    </dd>
+                </div>
+                
+                <!-- Structured Data -->
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        <div class="flex items-center">
+                            <span>Structured Data</span>
+                            @if($healthChecks['structured_data']['pass'])
+                                <svg class="ml-2 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="ml-2 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @if($healthChecks['structured_data']['pass'])
+                            <p class="text-green-600">Structured data is properly implemented.</p>
+                        @else
+                            <p class="text-red-600">Found {{ count($healthChecks['structured_data']['issues']) }} issue(s) with structured data:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                @foreach($healthChecks['structured_data']['issues'] as $issue)
+                                    <li>{{ $issue }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <strong>Best practices:</strong> Implement JSON-LD structured data for products and categories to help search engines understand your content.
+                            </p>
+                            <div class="mt-2">
+                                <a href="{{ route('admin.seo.structured-data') }}" class="text-primary hover:text-primary-dark font-medium">
+                                    Go to Structured Data Management &rarr;
+                                </a>
+                            </div>
+                        @endif
+                    </dd>
+                </div>
+                
+                <!-- Robots.txt -->
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        <div class="flex items-center">
+                            <span>Robots.txt</span>
+                            @if($healthChecks['robots_txt']['pass'])
+                                <svg class="ml-2 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="ml-2 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @if($healthChecks['robots_txt']['pass'])
+                            <p class="text-green-600">Robots.txt is properly configured.</p>
+                        @else
+                            <p class="text-red-600">Found {{ count($healthChecks['robots_txt']['issues']) }} issue(s) with robots.txt:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                @foreach($healthChecks['robots_txt']['issues'] as $issue)
+                                    <li>{{ $issue }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <strong>Best practices:</strong> Robots.txt should include user-agent directives, disallow paths for admin areas, and link to your sitemap.
+                            </p>
+                            <div class="mt-2">
+                                <a href="{{ route('admin.seo.robots-txt') }}" class="text-primary hover:text-primary-dark font-medium">
+                                    Edit Robots.txt &rarr;
+                                </a>
+                            </div>
+                        @endif
+                    </dd>
+                </div>
+                
+                <!-- Sitemap -->
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        <div class="flex items-center">
+                            <span>Sitemap</span>
+                            @if($healthChecks['sitemap']['pass'])
+                                <svg class="ml-2 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="ml-2 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @if($healthChecks['sitemap']['pass'])
+                            <p class="text-green-600">Sitemap is properly configured and up to date.</p>
+                        @else
+                            <p class="text-red-600">Found {{ count($healthChecks['sitemap']['issues']) }} issue(s) with sitemap:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                @foreach($healthChecks['sitemap']['issues'] as $issue)
+                                    <li>{{ $issue }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <strong>Best practices:</strong> Keep your sitemap updated and ensure it includes all important pages on your site.
+                            </p>
+                            <div class="mt-2 flex space-x-4">
+                                <a href="{{ route('admin.seo.generate-sitemap') }}" class="text-primary hover:text-primary-dark font-medium">
+                                    Generate Sitemap &rarr;
+                                </a>
+                                <a href="{{ route('admin.seo.sitemap-viewer') }}" class="text-primary hover:text-primary-dark font-medium">
+                                    View Sitemap &rarr;
+                                </a>
+                            </div>
+                        @endif
+                    </dd>
+                </div>
+                
+                <!-- Canonical URLs -->
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        <div class="flex items-center">
+                            <span>Canonical URLs</span>
+                            @if($healthChecks['canonical_urls']['pass'])
+                                <svg class="ml-2 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            @else
+                                <svg class="ml-2 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                </svg>
+                            @endif
+                        </div>
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        @if($healthChecks['canonical_urls']['pass'])
+                            <p class="text-green-600">Canonical URLs are properly set.</p>
+                        @else
+                            <p class="text-red-600">Found {{ count($healthChecks['canonical_urls']['issues']) }} issue(s) with canonical URLs:</p>
+                            <ul class="mt-2 list-disc pl-5 space-y-1">
+                                @foreach($healthChecks['canonical_urls']['issues'] as $issue)
+                                    <li>{{ $issue }}</li>
+                                @endforeach
+                            </ul>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <strong>Best practices:</strong> Each page should have a canonical URL to prevent duplicate content issues.
+                            </p>
+                        @endif
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+    
+    <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Quick action cards -->
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-primary rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Robots.txt</dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">Manage</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+                <div class="text-sm">
+                    <a href="{{ route('admin.seo.robots-txt') }}" class="font-medium text-primary hover:text-primary-dark">
+                        Edit robots.txt file
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-primary rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Structured Data</dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">Configure</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+                <div class="text-sm">
+                    <a href="{{ route('admin.seo.structured-data') }}" class="font-medium text-primary hover:text-primary-dark">
+                        Manage structured data
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-primary rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Sitemap</dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">Generate</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+                <div class="text-sm">
+                    <a href="{{ route('admin.seo.generate-sitemap') }}" class="font-medium text-primary hover:text-primary-dark">
+                        Generate sitemap
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-primary rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Sitemap Viewer</dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">View</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+                <div class="text-sm">
+                    <a href="{{ route('admin.seo.sitemap-viewer') }}" class="font-medium text-primary hover:text-primary-dark">
+                        View sitemap
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-primary rounded-md p-3">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                        </svg>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">Redirects</dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">Manage</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-5 py-3">
+                <div class="text-sm">
+                    <a href="{{ route('admin.seo.redirects') }}" class="font-medium text-primary hover:text-primary-dark">
+                        Manage redirects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('scripts')
+<script>
+    document.getElementById('runCheckBtn').addEventListener('click', function() {
+        // Reload the page to run the health check again
+        window.location.reload();
+    });
+</script>
+@endsection
+@endsection 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+    <loc>http://127.0.0.1:8000</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/celestial-glow-serum</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/reagan-rollins</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/ulric-puckett</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/kylie-ewing</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/test-observer-product</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/test-observer-product-1748899676</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/category/skincare</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/category/makeup</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/category/body-care</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products/category/xena-rosses</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/products</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/about</loc>
+            </url>
+    <url>
+    <loc>http://127.0.0.1:8000/contact</loc>
+            </url>
+</urlset>
