@@ -2,9 +2,11 @@
 
 Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling cosmetic products, built with the Laravel framework. It provides a complete solution for managing products, orders, customers, and more.
 
-## Key Features
+---
 
-### Storefront & Customer Experience
+## ✨ Key Features
+
+### 🛍️ Storefront & Customer Experience
 - **Dynamic Homepage**: Customizable sections including a hero banner, featured products, and special offers.
 - **Product Catalog**: Advanced product filtering, sorting, and category views.
 - **Shopping Cart**: Fully functional cart with toast notifications for a smooth user experience.
@@ -16,7 +18,7 @@ Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling co
 - **Legal Pages**: Dynamically managed content for Privacy Policy, Terms of Service, etc.
 - **Responsive Design**: A beautiful and responsive design that works on all devices.
 
-### Administration & Store Management
+### 🛠️ Administration & Store Management
 - **Powerful Admin Dashboard**: At-a-glance view of store performance and activity.
 - **Product Management**: Create, edit, and manage products, categories, and inventory.
 - **Order Management**: View, process, and update customer orders.
@@ -36,24 +38,24 @@ Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling co
 - **SEO Management**: Built-in tools for managing SEO metadata, canonical URLs, and `robots.txt`.
 - **Reporting**: Generate reports on sales, products, and customers.
 
-## Contributing
+---
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
+## 🖼️ Screenshots
 
-## License
+A selection of Opera browser screenshots demonstrating the Celestial Cosmetics platform can be found below:
+
+<p align="center">
+  <img src="screenshot/Opera%20Snapshot_2025-07-11_205048_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-07-11" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_021226_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_021226" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_021157_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_021157" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_021122_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_021122" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_020814_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_020814" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-25_031942_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-25_031942" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-25_031858_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-25_031858" width="600" />
+</p>
+
+---
+
+## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
-## Screenshots
-
-A selection of Opera browser screenshots demonstrating the Celestial Cosmetics platform can be found in the `screenshot/` directory:
-
-- `screenshot/Opera Snapshot_2025-07-11_205048_celestial-cosmetics.test.png`
-- `screenshot/Opera Snapshot_2025-06-27_021226_celestial-cosmetics.test.png`
-- `screenshot/Opera Snapshot_2025-06-27_021157_celestial-cosmetics.test.png`
-- `screenshot/Opera Snapshot_2025-06-27_021122_celestial-cosmetics.test.png`
-- `screenshot/Opera Snapshot_2025-06-27_020814_celestial-cosmetics.test.png`
-- `screenshot/Opera Snapshot_2025-06-25_031942_celestial-cosmetics.test.png`
-- `screenshot/Opera Snapshot_2025-06-25_031858_celestial-cosmetics.test.png`
-
-These images provide a visual overview of the storefront and admin features as seen in the Opera browser.
