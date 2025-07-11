@@ -13,46 +13,6 @@ Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling co
 - **Responsive Design**: A beautiful and responsive design that works on all devices.
 - **Multi-language Support**: Easily translate your store into multiple languages.
 
-## Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/celestial-cosmetics.git
-   cd celestial-cosmetics
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   composer install
-   npm install
-   ```
-
-3. **Set up your environment file:**
-   - Copy the `.env.example` file to `.env`:
-     ```bash
-     cp .env.example .env
-     ```
-   - Generate an application key:
-     ```bash
-     php artisan key:generate
-     ```
-   - Configure your database and other services in the `.env` file.
-
-4. **Run database migrations and seeders:**
-   ```bash
-   php artisan migrate --seed
-   ```
-
-5. **Build your assets:**
-   ```bash
-   npm run dev
-   ```
-
-6. **Start the development server:**
-   ```bash
-   php artisan serve
-   ```
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
