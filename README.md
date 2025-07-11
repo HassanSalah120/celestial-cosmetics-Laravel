@@ -42,16 +42,18 @@ Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling co
 
 ## 🖼️ Screenshots
 
-A selection of Opera browser screenshots demonstrating the Celestial Cosmetics platform can be found below:
-
+### Storefront
 <p align="center">
-  <img src="screenshot/Opera%20Snapshot_2025-07-11_205048_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-07-11" width="600" />
-  <img src="screenshot/Opera%20Snapshot_2025-06-27_021226_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_021226" width="600" />
-  <img src="screenshot/Opera%20Snapshot_2025-06-27_021157_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_021157" width="600" />
-  <img src="screenshot/Opera%20Snapshot_2025-06-27_021122_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_021122" width="600" />
-  <img src="screenshot/Opera%20Snapshot_2025-06-27_020814_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-27_020814" width="600" />
-  <img src="screenshot/Opera%20Snapshot_2025-06-25_031942_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-25_031942" width="600" />
-  <img src="screenshot/Opera%20Snapshot_2025-06-25_031858_celestial-cosmetics.test.png" alt="Opera Screenshot 2025-06-25_031858" width="600" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-25_031858_celestial-cosmetics.test.png" alt="Store Homepage" width="250" style="margin-right: 10px;" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-25_031942_celestial-cosmetics.test.png" alt="Product Catalog" width="250" style="margin-right: 10px;" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_020814_celestial-cosmetics.test.png" alt="Product Detail" width="250" />
+</p>
+
+### Admin Dashboard
+<p align="center">
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_021122_celestial-cosmetics.test.png" alt="Admin Dashboard" width="250" style="margin-right: 10px;" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_021157_celestial-cosmetics.test.png" alt="Product Management" width="250" style="margin-right: 10px;" />
+  <img src="screenshot/Opera%20Snapshot_2025-06-27_021226_celestial-cosmetics.test.png" alt="Order Management" width="250" />
 </p>
 
 ---
@@ -59,3 +61,4 @@ A selection of Opera browser screenshots demonstrating the Celestial Cosmetics p
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
+    
