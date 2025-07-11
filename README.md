@@ -1,7 +1,5 @@
 # Celestial Cosmetics
 
-![Celestial Cosmetics Banner](public/images/logo/logo.png)
-
 Celestial Cosmetics is a modern, feature-rich e-commerce platform for selling cosmetic products, built with the Laravel framework. It provides a complete solution for managing products, orders, customers, and more.
 
 ## Key Features
